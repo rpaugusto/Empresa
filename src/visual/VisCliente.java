@@ -19,9 +19,9 @@ import modelo.ModCliente;
  */
 public class VisCliente extends javax.swing.JFrame {
 
-    ModCliente obj;
+    ModCliente obj = null;
     ConCliente DAO;
-    String acao = null;
+    String acao = "";
 
     /**
      * Creates new form VisCliente
@@ -70,8 +70,6 @@ public class VisCliente extends javax.swing.JFrame {
         edtRg = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -324,29 +322,12 @@ public class VisCliente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,8 +335,6 @@ public class VisCliente extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -371,10 +350,10 @@ public class VisCliente extends javax.swing.JFrame {
         ativarMenu(true);
 
         acao = "insert";
-        
-        if (obj != null){
+
+        if (obj != null) {
             edtId.setText(Integer.toString(obj.getId()));
-            
+
         }
 
     }//GEN-LAST:event_btnNovoActionPerformed
@@ -411,9 +390,9 @@ public class VisCliente extends javax.swing.JFrame {
                         if (DAO.insert(obj)) {
                             JOptionPane.showMessageDialog(this, "Gravado com sucesso!", "Cadastro de Clientes", 1);
 
-                            ativaCampos(false);
                             ativarMenu(false);
-                            limpaCampos();
+                            retornaObj(obj);
+                            
                         } else {
                             JOptionPane.showMessageDialog(this, "erro, não foi possivel gravar!");
                         }
@@ -455,11 +434,11 @@ public class VisCliente extends javax.swing.JFrame {
         try {
             if (DAO.delete(obj)) {
                 JOptionPane.showMessageDialog(this, "Registro excluido com sucesso!");
-                
+
                 limpaCampos();
                 obj = null;
                 ativarMenu(false);
-                
+
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao excluir registro!");
             }
@@ -537,8 +516,6 @@ public class VisCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
     private boolean validaCampos() {
@@ -593,6 +570,19 @@ public class VisCliente extends javax.swing.JFrame {
 
     }
 
+    private void retornaObj(ModCliente obj) {
+
+        edtNome.setText(obj.getNome());
+        edtEndereco.setText(obj.getEndereco());
+        edtBairro.setText(obj.getBairro());
+        edtCidade.setText(obj.getCidade());
+        edtTelefone.setText(obj.getTelefone());
+        edtCelular.setText(obj.getCelular());
+        edtCpf.setText(obj.getCpf());
+        edtRg.setText(obj.getRg());
+        edtRenda.setText(String.valueOf(obj.getRenda()));
+    }
+
     private void ativaCampos(boolean ativo) {
         //metodo para ativar os campos para edição
 
@@ -618,13 +608,12 @@ public class VisCliente extends javax.swing.JFrame {
         btnSalvar.setEnabled(ativo);
         btnCancelar.setEnabled(ativo);
     }
-    
+
     private void preencherTb() throws Exception {
-        
+
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"id", "nome", "cpf", "telefone"};
-        
-        
+
     }
 
 }

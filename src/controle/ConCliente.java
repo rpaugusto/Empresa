@@ -28,7 +28,7 @@ public class ConCliente {
                 + "cidade, telefone, celular, renda) "
                 + "VALUES (?,?,?,?,?,?,?,?,?) ";
 
-        this.ps = con.getCon().prepareStatement(this.sql);
+        this.ps = con.openCon().prepareStatement(this.sql);
         this.ps.setString(1, obj.getNome());
         this.ps.setString(2, obj.getRg());
         this.ps.setString(3, obj.getCpf());
@@ -40,6 +40,7 @@ public class ConCliente {
         this.ps.setDouble(9, obj.getRenda());
 
         return this.ps.executeUpdate() > 0;
+        
     }
 
     
@@ -50,7 +51,7 @@ public class ConCliente {
 
         this.sql = "SELECT * FROM clientes" + argumento;
 
-        this.ps = con.getCon().prepareStatement(this.sql);
+        this.ps = con.openCon().prepareStatement(this.sql);
         //this.ps.setString(1, cpf);
         this.rs = this.ps.executeQuery();
         if (rs.next()) {
@@ -79,7 +80,7 @@ public class ConCliente {
                 + "bairro = ?, cidade = ?, telefone = ?, celular = ?, renda = ?) "
                 + "WHERE (id = ? and cpf = ?) ";
 
-        this.ps = con.getCon().prepareStatement(this.sql);
+        this.ps = con.openCon().prepareStatement(this.sql);
         this.ps.setString(1, obj.getNome());
         this.ps.setString(2, obj.getRg());
         this.ps.setString(3, obj.getCpf());
@@ -101,7 +102,7 @@ public class ConCliente {
 
         this.sql = "DELETE FOM pessoas WHERE id = ?";
 
-        this.ps = con.getCon().prepareStatement(this.sql);
+        this.ps = con.openCon().prepareStatement(this.sql);
         this.ps.setInt(1, obj.getId());
 
         return this.ps.executeUpdate() > 0;
