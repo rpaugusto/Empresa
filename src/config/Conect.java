@@ -18,7 +18,7 @@ import jdk.nashorn.internal.codegen.CompilerConstants;
 public class Conect {
 
     private String driver = "org.postgresql.driver";
-    private String host = "127.0.0.1"; //endereço ip do servidor
+    private String host = "localhost"; //endereço ip do servidor
     private String port = "5432";      //porta de comunicação com o banco de dados
     private String base = "estoque";   //nome da base de dados
     private String user = "root";      //usuario para logar no banco

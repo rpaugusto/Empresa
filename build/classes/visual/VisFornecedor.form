@@ -165,8 +165,10 @@
                 <Component class="javax.swing.JButton" name="btnFicha">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="FICHA"/>
-                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFichaActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnSair">
                   <Properties>

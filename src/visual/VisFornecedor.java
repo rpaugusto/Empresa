@@ -10,6 +10,8 @@ import modelo.ModFornecedor;
 import controle.ConFornecedor;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -121,7 +123,11 @@ public class VisFornecedor extends javax.swing.JFrame {
         });
 
         btnFicha.setText("FICHA");
-        btnFicha.setEnabled(false);
+        btnFicha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFichaActionPerformed(evt);
+            }
+        });
 
         btnSair.setText("SAIR");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -602,6 +608,18 @@ public class VisFornecedor extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFichaActionPerformed
+        // TODO add your handling code here:
+        DAO = new ConFornecedor();
+        JasperPrint rel;
+        try {
+            rel = DAO.relFicha(obj);
+            JasperViewer.viewReport(rel,false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnFichaActionPerformed
 
     /**
      * @param args the command line arguments

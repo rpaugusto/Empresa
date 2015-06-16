@@ -9,6 +9,9 @@ import modelo.ModFornecedor;
 import config.Conect;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import net.sf.jasperreports.engine.*;
+
 
 /**
  *
@@ -19,6 +22,7 @@ public class ConFornecedor {
     private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
+    private String fileJasp;
 
     public boolean insert(ModFornecedor obj) throws SQLException {
 
@@ -59,6 +63,7 @@ public class ConFornecedor {
         this.ps.setString(6, obj.getTelefone());
         this.ps.setString(7, obj.getCnpj());
         this.ps.setString(8, obj.getIe());
+        this.ps.setInt(9, obj.getId());
         
         con.cloCon();
 
@@ -138,6 +143,29 @@ public class ConFornecedor {
         }
 
         return null;
+    }
+    
+    public JasperPrint relFicha(ModFornecedor obj) throws Exception{
+        
+        JasperPrint rel = null;
+        Conect con = new Conect();
+        
+        try {
+            this.fileJasp = "reports/repFichFornecedor.jasper";
+            this.sql = "SELECT * FROM fornecedores WHERE id = ?";
+            this.ps = con.openCon().prepareCall(this.sql);
+            this.ps.setInt(9, obj.getId());
+            this.rs = this.ps.executeQuery();
+            
+            JRResultSetDataSource jrs = new JRResultSetDataSource(rs);
+            HashMap map = new HashMap();
+            map.put("QUERY", con);
+                        
+            rel = JasperFillManager.fillReport(fileJasp,map,jrs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rel;
     }
 
 }
